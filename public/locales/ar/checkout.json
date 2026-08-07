@@ -1,0 +1,14 @@
+{
+    "checkout" : "إتمام عملية الشراء",
+    "deliver_to" : "التوصيل إلي",
+    "shipping" : "الشحن",
+    "back_to_cart" : "الرجوع لعربة التسوق",
+    "continue_to_payment" : "تابع عملية الشراء",
+    "my_details" : "تفاصيلي",
+    "place_order" : "إتمام الشراء",
+    "add_new_address" : "إضافة عنوان جديد",
+    "payment" : "الدفع",
+    "payment_method" : "طريقة الدفع",
+    "cash_on_delivery" : "الدفع عند الاستلام نقدي",
+    "card_on_delivery" : "الدفع عند الاستلام فيزا"
+}

@@ -1,0 +1,39 @@
+.product-loader {
+
+    border-radius: 8px;
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.02);
+    border: solid 1px #cbcbcb;
+    padding: 30px;
+
+    .product-badge {
+
+        width: 50%;
+        height: 30px;
+    }
+
+    .product-image {
+
+        margin: 20px 0;
+
+        .product-image-loader {
+
+            height: 150px;
+        }
+    }
+
+    .product-name {
+
+        margin-bottom: 20px;
+    }
+
+    .product-price {
+
+        margin-bottom: 18px;
+        width: 60%;
+    }
+
+    .product-rate {
+
+        width: 30%;
+    }
+}

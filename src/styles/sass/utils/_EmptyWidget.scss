@@ -1,0 +1,29 @@
+.empty-widget {
+
+    margin-top: 80px;
+    text-align: center;
+
+    .label {
+
+        display: block;
+        // margin-top: 40px;
+        color: #FFF;
+        background-color: $mainColor;
+        padding: 22px 30px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        width: 20%;
+        margin: 40px auto;
+
+        @media(max-width: 500px) {
+
+            width: 70%;
+        }
+
+        img {
+
+            margin-left: 15px;
+        }
+    }
+}

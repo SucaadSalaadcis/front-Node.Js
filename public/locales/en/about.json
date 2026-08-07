@@ -1,0 +1,26 @@
+{
+  "our_Story_Values": "Our Story & Values",
+  "learn_who": "Learn who we are, our journey, and what makes us different",
+  "our_ourney": "Our Journey",
+  "our_vision": "Our Vision",
+  "to_be_the_1": "To be the #1 consumer choice for quality retail experiences",
+  "our_mission": "Our Mission",
+  "deliver_premium": "Deliver premium products with unmatched service and value",
+  "our_core_values": "Our Core Values",
+  "to_be_the_leading": "To be the leading choice for consumers seeking premium quality and trusted retail experiences",
+  "deliver_exceptional": "Deliver exceptional products through integrity, innovation, and customer-focused service",
+  "1947": "Company Founded",
+  "1980s": "Bulk Nuts & Dates",
+  "1990s": "Portfolio Expansion",
+  "2000s": "Logistics Growth",
+  "2010s": "Premium Selection",
+  "2020": "Flagship Stores",
+  "2023": "Digital Transformation",
+  "2026": "Sustainability Initiatives",
+  "values": [
+    { "title": "Honesty & Integrity", "icon": "🛡️" },
+    { "title": "Trust & Loyalty", "icon": "🤝" },
+    { "title": "Responsible Leadership", "icon": "🏆" },
+    { "title": "Family-Oriented Culture", "icon": "👨‍👩‍👧‍👦" }
+  ]
+}

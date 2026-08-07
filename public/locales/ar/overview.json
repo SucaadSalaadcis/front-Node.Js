@@ -1,0 +1,15 @@
+{
+    "overview" : "نظرة عامة",
+    "account_overview" : "نظرة عامة على الحساب",
+    "account_details" : "",
+    "name" : "تفاصيل الحساب",
+    "phone_number" : "رقم الهاتف",
+    "email" : "البريد الالكتروني",
+    "edit_account" : "تعديل الحساب",
+    "latest_order" : "أحدث طلب",
+    "empty_orders_text" : "ليس لديك اي طلبات جديده، تصفح المنتجات الان لانشاء طلبات جديدة",
+    "browse_products" : "تصفح المنتجات",
+    "saved_addresses" : "العناوين المحفوظة",
+    "empty_address_text" : "ليس لديك أي عناوين محفوظة ، أضف عنوانا جديدا لإجراء عملية سحب سريعة",
+    "add_new_address" : "إضافة عنوان جديد"
+}

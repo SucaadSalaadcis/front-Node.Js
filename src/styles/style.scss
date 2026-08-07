@@ -1,0 +1,57 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './sass/style.scss';
+
+/* Toast notifications */
+.Toastify__toast {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important;
+  padding: 14px 20px !important;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.Toastify__toast-body {
+  margin: 0;
+  padding: 0;
+}
+
+.Toastify__toast-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.Toastify__close-button {
+  align-self: center;
+  opacity: 0.4;
+}
+
+@media (max-width: 480px) {
+  .Toastify__toast {
+    margin: 0 12px;
+    border-radius: 14px !important;
+    padding: 12px 16px !important;
+    font-size: 13px;
+  }
+}
+
+/*  RTL variableWidth overflow */
+[dir="rtl"] .slick-track {
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+[dir="rtl"] .slick-list {
+  overflow: hidden !important;
+}
+
+
+/* Mobile spacing improvement */
+@media (max-width: 640px) {
+  .slick-slide {
+    padding: 0 4px;
+  }
+}

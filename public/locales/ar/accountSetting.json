@@ -1,0 +1,21 @@
+{
+    "account_information" : "معلومات الحساب",
+    "personal_information" : "المعلومات الشخصية",
+    "first_name" : "الاسم الاول",
+    "last_name" : "الاسم الاخير",
+    "email" : "البريد الالكتروني",
+    "phone_number" : "رقم الهاتف",
+    "edit" : "تعديل",
+    "password" : "كلمة المرور",
+    "save_changes" : "حفظ التغييرات",
+    "current_password_is_required" : "كلمة المرور الحالية مطلوبة",
+    "new_password_is_required" : "كلمة المرور الجديدة مطلوبة",
+    "please_make_sure_your_passwords_match" : "يرجى التأكد من تطابق كلمات المرور الخاصة بك",
+    "change_password" : "تغيير كلمة المرور",
+    "current_password" : "كلمة المرور الحالية",
+    "new_password" : "كلمة مرور جديدة",
+    "confirm_new_password" : "تأكيد كلمة المرور الجديدة",
+    "save_password" : "حفظ كلمة المرور",
+    "cancel" : "إلغاء",
+    "login_details" : "تفاصيل تسجيل الدخول"
+}

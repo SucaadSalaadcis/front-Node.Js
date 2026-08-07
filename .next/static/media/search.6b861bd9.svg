@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="fi-rs-search_Background_Mask_" data-name="fi-rs-search (Background/Mask)" width="20" height="20" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="fi-rs-search" clip-path="url(#clip-path)">
+    <g id="_01_align_center" data-name="01 align center" transform="translate(-0.027 -0.027)">
+      <path id="Vector" d="M13.63,14.809a8.347,8.347,0,1,1,1.179-1.179l5.218,5.219-1.178,1.178Z" fill="#7e7e7e"/>
+    </g>
+  </g>
+</svg>

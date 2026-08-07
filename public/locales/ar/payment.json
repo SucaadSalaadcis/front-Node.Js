@@ -1,0 +1,20 @@
+{
+    "payment_summary" : "ملخص الدفع",
+    "subtotal_exclusive_of_vat" : "اجمالي قيمة المنتجات",
+    "shipping_fees" : "رسوم الشحن",
+    "total_inclusive_of_vat" : "الاجمالي",
+    "products_summary" : "ملخص المنتجات",
+    "egp" : "جنية",
+    "qty" : "الكمية",
+    "weight" : "وزن",
+    "gm" : "جم",
+    "do_you_want_to_leave_your_rating_for_this_product" : "هل تريد ترك تقييمك لهذا المنتج ؟",
+    "leave_comment" : "اترك تعليقا",
+    "send" : "ارسال",
+    "cancel" : "الغاء",
+    "rate_this_product" : "قيم هذا المنتج",
+    "enter_discount_code" : "أدخل كود الخصم",
+    "please_enter_discount_code" : "من فضلك أدخل كود الخصم",
+    "apply_discount" : "تطبيق الخصم",
+    "proceed" : "تابع عمليه الشراء"
+}

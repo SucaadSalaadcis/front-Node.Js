@@ -1,0 +1,11 @@
+.account-title {
+
+    margin-bottom: 25px;
+    color: $mainColor;
+    font-weight: 600;
+
+    @media(max-width: 500px) {
+
+        margin-top: 25px;
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "contact_us": "تواصل معنا",
+  "always_ready_to_serve_you": "نحن دائمًا في خدمتك",
+  "contact_description": "هل لديك استفسار عن المنتجات الطازجة أو العروض الخاصة أو خدمة التوصيل للمنازل؟ تواصل معنا مباشرة!",
+  "hotline": "الخط الساخن",
+  "email_support": "البريد الإلكتروني",
+  "check_branch_coverage": "تحقق من تغطية الفروع:",
+  "view_linktree": "عرض لينك تري ←",
+  "form_description": "املأ النموذج أدناه وسيقوم فريقنا بالرد عليك في أقرب وقت ممكن.",
+  "full_name": "الاسم بالكامل",
+  "phone_number": "رقم الهاتف",
+  "message": "الرسالة",
+  "enter_your_full_name": "أدخل اسمك بالكامل",
+  "enter_your_phone_number": "أدخل رقم هاتفك",
+  "write_your_message": "اكتب رسالتك",
+  "send": "إرسال",
+  "sending": "جارٍ الإرسال...",
+  "your_full_name_is_required": "الاسم بالكامل مطلوب.",
+  "your_phone_number_is_required": "رقم الهاتف مطلوب.",
+  "your_message_is_required": "الرسالة مطلوبة.",
+  "thank_you_message": "شكرًا لك! سوف نتواصل معك في أقرب وقت.",
+  "fill_required_fields": "يرجى ملء جميع الحقول المطلوبة."
+}

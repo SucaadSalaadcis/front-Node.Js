@@ -1,0 +1,15 @@
+{
+    "overview" : "Overview",
+    "account_overview" : "Account Overview",
+    "account_details" : "Account Details",
+    "name" : "Name",
+    "phone_number" : "Phone Number",
+    "email" : "Email",
+    "edit_account" : "Edit Account",
+    "latest_order" : "Latest Order",
+    "empty_orders_text" : "You Don’t Have Any New Orders, Browse Products Now to Have a Quick Checkout Process To a New Orders.",
+    "browse_products" : "Browse Products",
+    "saved_addresses" : "Saved Addresses",
+    "empty_address_text" : "You Don’t Have any Saved Addresses, Add a New Address to Have a Quick Checkout Process",
+    "add_new_address" : "Add New Address"
+}

@@ -1,0 +1,370 @@
+.overview {
+
+    padding: 50px 0;
+    background-color: #FAFAFA;
+
+    @media(max-width: 500px) {
+
+        padding-top: 0;
+    }
+
+    .col-md-3 {
+
+        @media(max-width: 500px) {
+
+            padding: 0;
+        }
+    }
+
+    .overview-box {
+
+        padding: 25px 0;
+        border-bottom: 2px solid #E7E9EB;
+
+        .box-title {
+
+            font-size: 25px;
+            color: $mainColor;
+            text-transform: capitalize;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .overview-setting {
+
+            display: flex;
+
+            @media(max-width : 500px) {
+                    
+                flex-direction: column;
+            }
+
+            .account-info {
+
+                display: flex;
+                margin-right: 100px;
+
+                [dir="rtl"] & {
+
+                    margin-right: 0;
+                    margin-left: 100px;
+                }
+
+                @media(max-width : 500px) {
+                    
+                    margin-bottom: 10px;
+                }
+
+                .label {
+
+                    color: $mainColor;
+                    margin-right: 5px;
+                    font-size: 14px;
+                    font-weight: 500;
+
+                    [dir="rtl"] & {
+
+                        margin-right: 0;
+                        margin-left: 5px;
+                    }
+                }
+
+                .account-text {
+
+                    font-size: 14px;
+                    color: #4c5975;
+                    font-weight: 500;
+                    text-transform: capitalize;
+                }
+            }
+        }
+
+        .edit-btn {
+
+            display: inline-block;
+            margin-top: 40px;
+            color: $mainColor;
+            font-weight: 500;
+            font-size: 14px;
+
+            @media(max-width : 500px) {
+                    
+                margin-top: 20px;
+            }
+
+            i {
+
+                margin-right: 5px;
+                position: relative;
+                top: 2px;
+
+                [dir="rtl"] & {
+
+                    margin-right: 0;
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        .browse-products-btn {
+
+            display: inline-block;
+            margin-top: 40px;
+            color: #FFF;
+            font-weight: 500;
+            font-size: 18px;
+            background-color: $mainColor;
+            padding: 22px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+
+            img {
+
+                margin-left: 10px;
+
+                [dir="rtl"] & {
+
+                    margin-left: 0;
+                    margin-right: 10px;
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+
+    .user-form {
+
+        .form-title {
+
+            color: #425466;
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+
+            margin-bottom: 25px;
+            position: relative;
+
+            .left-icon {
+
+                position: absolute;
+                top: 70%;
+                right: 20px;
+                transform: translateY(-40%);
+                cursor: pointer;
+
+                [dir="rtl"] & {
+
+                    right: unset;
+                    left: 20px;
+                }
+            }
+
+            .form-text {
+
+                position: absolute;
+                bottom: -25px;
+                font-weight: 500;
+            }
+
+            label {
+
+                margin-bottom: 10px;
+                font-size: 16px;
+                color: #425466;
+                font-weight: 500;
+
+                &.pass {
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    a {
+
+                        color: $mainColor;
+                        font-size: 14px;
+
+                        i {
+
+                            position: relative;
+                            top: 2px;
+                        }
+                    }
+                }
+            }
+
+            .form-control {
+
+                background-color: #f9fcf5;
+                padding: 10px;
+                color: #808080;
+
+                &:focus {
+
+                    box-shadow: none;
+                    border-color: $mainColor;
+                }
+
+                &.form-select {
+
+                    [dir="rtl"] & {
+
+                        background-position: left 0.75rem center;
+                    }
+                }
+            }
+        }
+
+        .submit-loader {
+
+            border: none;
+            background: none;
+            text-align: center;
+            padding: 15px 0;
+            background-color: $mainColor;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 8px;
+            opacity: .7;
+            cursor: not-allowed;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 40px;
+
+            @media(max-width : 500px) {
+
+                padding: 10px 20px;
+            }
+            
+
+            .loader {
+                    width: 30px;
+                    height: 30px;
+                    border: 3px solid #FFF;
+                    border-bottom-color: transparent;
+                    border-radius: 50%;
+                    display: inline-block;
+                    box-sizing: border-box;
+                    animation: rotation 1s linear infinite;
+                    margin-left: 10px;
+                }
+            
+                @keyframes rotation {
+                    0% {
+                        transform: rotate(0deg);
+                    }
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                } 
+        }
+
+        .submit-loader-account {
+
+            border: none;
+            background: none;
+            text-align: center;
+            padding: 15px 0;
+            background-color: $mainColor;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 8px;
+            opacity: .7;
+            cursor: not-allowed;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 40px;
+            margin-top: 25px;
+
+            @media(max-width : 500px) {
+
+                padding: 10px 20px;
+            }
+
+            .loader {
+                    width: 25px;
+                    height: 25px;
+                    border: 2px solid #FFF;
+                    border-bottom-color: transparent;
+                    border-radius: 50%;
+                    display: inline-block;
+                    box-sizing: border-box;
+                    animation: rotation 1s linear infinite;
+                    margin-left: 10px;
+
+                    [dir="rtl"] & {
+
+                        margin-left: 0;
+                        margin-right: 10px;
+                    } 
+                }
+            
+                @keyframes rotation {
+                    0% {
+                        transform: rotate(0deg);
+                    }
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                } 
+        }
+
+        .form-btn {
+
+            border: none;
+            background: none;
+            color: #FFF;
+            background-color: $mainColor;
+            border: 1px solid $mainColor;
+            padding: 10px 40px;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 25px;
+            border-radius: 7px;
+
+            @media(max-width : 500px) {
+
+                padding: 10px 20px;
+            }
+        }
+
+        .cancel {
+
+            color: $secondColor;
+            border: 1px solid $secondColor;
+            padding: 10px 40px;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 25px;
+            border-radius: 7px;
+            margin-left: 20px;
+
+            [dir="rtl"] & {
+
+                margin-left: 0;
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .add-btn {
+
+        color: #FFF;
+        background-color: $mainColor;
+        border: 1px solid $mainColor;
+        padding: 10px 40px;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 25px;
+        border-radius: 7px;
+    }
+    
+}

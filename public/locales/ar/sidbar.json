@@ -1,0 +1,11 @@
+{
+    "overview" : "نظرة عامة",
+    "my_orders" : "طلباتي",
+    "my_wishlist" : "المفضلة",
+    "my_address" : "عناويني",
+    "account_setting" : "إعدادات الحساب",
+    "logout" : "تسجيل الخروج",
+    "are_you_sure_to_logout" : "هل أنت متأكد من تسجيل الخروج؟",
+    "yes_logout" : "نعم ، تسجيل الخروج",
+    "cancel" : "إلغاء"
+}

@@ -1,0 +1,20 @@
+.main-cat-box {
+
+    display: block;
+    text-align: center;
+    margin-bottom: 25px;
+
+    img {
+
+        
+        border-radius: 12px;
+        object-fit: fill;
+    }
+
+    .sub-title {
+
+        color: $headingsColor;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+}

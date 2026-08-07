@@ -1,0 +1,112 @@
+.contact-us {
+
+    padding: 80px 0;
+
+    @media(max-width: 500px) {
+
+        padding: 50px 0;
+    }
+
+    .contact-title {
+
+        color: $secondColor;
+        font-size: 35px;
+        margin-bottom: 25px;
+    }
+
+    .contact-box {
+
+        margin-bottom: 10px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+
+        i {
+
+            color: $mainColor;
+            font-size: 18px;
+        }
+
+        a {
+
+            display: inline-block;
+            margin-left: 10px;
+            color: $secondColor;
+            font-weight: 500;
+
+            [dir=rtl] & {
+
+                margin-left: 0;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .contact-form {
+
+        border-radius: 15px;
+        box-shadow: 0 4px 64px 0 rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        padding: 50px;
+
+        @media(max-width: 500px) {
+
+            margin-top: 30px;
+            padding: 30px;
+        }
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+            label {
+
+                margin-bottom: 15px;
+                color: #262729;
+                font-size: 15px;
+            }
+
+            .form-control {
+
+                background-color: #e1ecf075;
+                padding: 25px;
+                border-color: #e1ecf0;
+                border-radius: 10px;
+                color: #262729;
+
+                &:focus {
+
+                    border-color: #262729;
+                    box-shadow: none;
+                }
+
+                &::placeholder {
+
+                    color: #262729;
+                    opacity: .5;
+                }
+            }
+        }
+
+        .btn {
+
+            background-color: $mainColor;
+            display: block;
+            width: 100%;
+            border-radius: 10px;
+            padding: 20px;
+            color: #fff;
+
+            &:focus {
+
+                box-shadow: none;
+            }
+
+            &.load {
+
+                opacity: .5;
+                cursor: not-allowed;
+            }
+        }
+    }
+}

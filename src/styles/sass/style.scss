@@ -1,0 +1,52 @@
+/**************************************
+    Default Styles
+***************************************/
+@import './default/ShortCodes';
+@import './default/Variables';
+@import './default/Common';
+
+/**************************************
+    Layout Styles
+***************************************/
+@import './layouts/Header';
+@import './layouts/Footer';
+@import './layouts/Sidebar';
+
+/**************************************
+    Components Styles
+***************************************/
+@import './components/Hero';
+@import './components/FeaturedCategories';
+@import './components/PopularProducts';
+@import './components/BestSeller';
+@import './components/HomeFeaturedCategories';
+@import './components/Auth';
+@import './components/Categories';
+@import './components/Overview';
+@import './components/SingleOrder';
+@import './components/SingleProduct';
+@import './components/Cart';
+@import './components/Checkout';
+@import './components/HotOffers';
+@import './components/Pages';
+@import './components/TopBrands';
+@import './components/ContactUs';
+
+/**************************************
+    Utils Styles
+***************************************/
+@import './utils/SectionTitle';
+@import './utils/PageHeader';
+@import './utils/AccountTitle';
+@import './utils/OrderBox';
+@import './utils/AddressBox';
+@import './utils/PaymentSummary';
+@import './utils/ProductBoxTwo';
+@import './utils/CartProductBox';
+@import './utils/FilterBox';
+@import './utils/ProductLoader';
+@import './utils/PageLoader';
+@import './utils/AccountLoader';
+@import './utils/EmptyWidget';
+@import './utils/MainCategoryBox';
+@import './utils/BrandBox';

@@ -1,0 +1,30 @@
+.categories {
+
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .categories-box {
+
+        display: inline-block;
+        background-color: #fefceb;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 25px;
+
+        .cat-image {
+
+            margin-bottom: 10px;
+        }
+
+        .cat-title {
+
+            color: #253D4E;
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: capitalize;
+        }
+    }
+}

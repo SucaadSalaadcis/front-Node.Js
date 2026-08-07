@@ -1,0 +1,200 @@
+.payment-summary {
+
+    padding: 35px;
+    background-color: #FFF;
+    border-radius: 24px;
+    margin-top: 35px;
+
+    @media(max-width: 500px) {
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 16px;
+    }
+
+    .title {
+
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 25px;
+
+        @media(max-width: 500px) {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+    }
+
+    .fees-list {
+
+        border-bottom: 1px solid $mainColor;
+
+        li {
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+
+            .label {
+
+                font-size: 14px;
+                color: #425466;
+                font-weight: 500;
+            }
+
+            .text {
+
+                font-size: 16px;
+                color: #5dae0d;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .total {
+
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+
+        .label {
+
+            font-size: 14px;
+            color: #425466;
+            font-weight: 500;
+        }
+
+        .text {
+
+            font-size: 16px;
+            color: #5dae0d;
+            font-weight: 500;
+        }
+    }
+
+    .pay-order {
+
+        .apply-coupon {
+
+            margin-bottom: 20px;
+
+            .form-group {
+
+                position: relative;
+
+                .form-control {
+
+                    padding: 15px;
+
+                    &::placeholder {
+
+                        font-size: 14px;
+                    }
+
+                    &:focus {
+
+                        box-shadow: none;
+                        border-color: $mainColor;
+                    }
+                }
+
+                .coupon-btn {
+
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    border: 0;
+                    background: none;
+                    background-color: $mainColor;
+                    height: 100%;
+                    border-top-right-radius: 0.375rem;
+                    border-bottom-right-radius: 0.375rem;
+                    font-size: 14px;
+                    padding: 0 18px;
+                    color: #FFF;
+                    font-weight: 600;
+
+                    [dir="rtl"] & {
+
+                        right: unset;
+                        left: 0;
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                        border-top-left-radius: 0.375rem;
+                        border-bottom-left-radius: 0.375rem;
+                    }
+                }
+
+                .coupon-btn-loader {
+
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    border: 0;
+                    background: none;
+                    background-color: $mainColor;
+                    height: 100%;
+                    border-top-right-radius: 0.375rem;
+                    border-bottom-right-radius: 0.375rem;
+                    font-size: 14px;
+                    padding: 0 18px;
+                    color: #FFF;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    opacity: .7;
+                    cursor: not-allowed;
+
+                    [dir="rtl"] & {
+
+                        right: unset;
+                        left: 0;
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                        border-top-left-radius: 0.375rem;
+                        border-bottom-left-radius: 0.375rem;
+                    }
+
+                    .loader {
+                        width: 15px;
+                        height: 15px;
+                        border: 1px solid #FFF;
+                        border-bottom-color: transparent;
+                        border-radius: 50%;
+                        display: inline-block;
+                        box-sizing: border-box;
+                        animation: rotation 1s linear infinite;
+                        margin-left: 10px;
+                    }
+                    
+                    @keyframes rotation {
+                        0% {
+                            transform: rotate(0deg);
+                        }
+                        100% {
+                            transform: rotate(360deg);
+                        }
+                    } 
+                }
+            }
+        }
+
+        .proceed {
+
+            display: block;
+            width: 100%;
+            background-color: $mainColor;
+            color: #FFF;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .payment-logos {
+
+            text-align: center;
+            margin-top: 15px;
+        }
+    }
+}

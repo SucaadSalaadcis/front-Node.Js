@@ -1,0 +1,25 @@
+.section-title {
+  font-size: 37px;
+  color: $mainColor;
+  font-weight: 600;
+
+  // tablet
+  @media (max-width: 1024px) {
+    font-size: 32px;
+  }
+
+  // small tablet
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+
+  // mobile
+  @media (max-width: 480px) {
+    font-size: 22px;
+  }
+
+  // very small phones
+  @media (max-width: 360px) {
+    font-size: 20px;
+  }
+}

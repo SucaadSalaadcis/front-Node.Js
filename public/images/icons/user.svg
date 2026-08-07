@@ -1,0 +1,14 @@
+<svg id="fi-rs-user" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="fi-rs-user_Background_Mask_" data-name="fi-rs-user (Background/Mask)" width="24" height="24" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="fi-rs-user_Background_Mask_2" data-name="fi-rs-user (Background/Mask)" width="24" height="24" fill="none"/>
+  <g id="fi-rs-user-2" data-name="fi-rs-user" clip-path="url(#clip-path)">
+    <g id="_01_align_center" data-name="01 align center" transform="translate(3)">
+      <path id="Vector" d="M16,10V4.957A2.96,2.96,0,0,0,13.043,2H4.957A2.96,2.96,0,0,0,2,4.957V10H0V4.957A4.963,4.963,0,0,1,4.957,0h8.086A4.963,4.963,0,0,1,18,4.957V10Z" transform="translate(0 14)" fill="#1d3e73"/>
+      <path id="Vector-2" data-name="Vector" d="M2.667,10.989A6,6,0,1,1,6,12,6.009,6.009,0,0,1,2.667,10.989Z" transform="translate(3)" fill="#1d3e73"/>
+    </g>
+  </g>
+</svg>

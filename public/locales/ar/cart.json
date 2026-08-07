@@ -1,0 +1,11 @@
+{
+    "my_cart" : "عربة التسوق",
+    "you_have" : "لديك",
+    "product_in_your_cart" : "منتج في عربة تسوقك",
+    "select_qty" : "اختر الكمية",
+    "egp" : "جنية",
+    "continue_shopping" : "متابعة التسوق",
+    "Your_shopping_cart_is_currently_empty" : "عربة التسوق الخاصة بك فارغة حالياً.",
+    "additional_notes" : "ملاحظات إضافية",
+    "notes_placeholder" : "أضف ملاحظاتك هنا"
+}

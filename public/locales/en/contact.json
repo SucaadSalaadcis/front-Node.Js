@@ -1,0 +1,23 @@
+{
+  "contact_us": "Contact Us",
+  "always_ready_to_serve_you": "Always Ready to Serve You",
+  "contact_description": "Have questions about fresh grocery stock, special offers, or home delivery? Reach out to us directly!",
+  "hotline": "Hotline",
+  "email_support": "Email Support",
+  "check_branch_coverage": "Check branch coverage:",
+  "view_linktree": "View Linktree →",
+  "form_description": "Fill out the form below and our team will respond as soon as possible.",
+  "full_name": "Full Name",
+  "phone_number": "Phone Number",
+  "message": "Message",
+  "enter_your_full_name": "Enter your full name",
+  "enter_your_phone_number": "Enter your phone number",
+  "write_your_message": "Write your message",
+  "send": "Send",
+  "sending": "Sending...",
+  "your_full_name_is_required": "Your full name is required.",
+  "your_phone_number_is_required": "Your phone number is required.",
+  "your_message_is_required": "Your message is required.",
+  "thank_you_message": "Thank you! We will get back to you shortly.",
+  "fill_required_fields": "Please fill in all required fields."
+}

@@ -1,0 +1,21 @@
+{
+    "account_information" : "Account Information",
+    "personal_information" : "Personal Information",
+    "first_name" : "First Name",
+    "last_name" : "Last Name",
+    "email" : "Email",
+    "phone_number" : "Phone Number",
+    "edit" : "Edit",
+    "password" : "Password",
+    "save_changes" : "Save Changes",
+    "current_password_is_required" : "Current Password Is Required",
+    "new_password_is_required" : "New Password Is Required",
+    "please_make_sure_your_passwords_match" : "Please Make Sure Your Passwords Match",
+    "change_password" : "Change Password",
+    "current_password" : "Current Password",
+    "new_password" : "New Password",
+    "confirm_new_password" : "Confirm New Password",
+    "save_password" : "Save Password",
+    "cancel" : "Cancel",
+    "login_details" : "Login Details"
+}

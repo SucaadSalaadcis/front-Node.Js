@@ -1,0 +1,20 @@
+{
+    "payment_summary" : "Payment Summary",
+    "subtotal_exclusive_of_vat" : "Total Product Value",
+    "shipping_fees" : "Shipping Fees",
+    "total_inclusive_of_vat" : "Total",
+    "products_summary" : "Products Summary",
+    "egp" : "EGP",
+    "qty" : "QTY",
+    "weight" : "Weight",
+    "gm" : "g",
+    "do_you_want_to_leave_your_rating_for_this_product" : "Do You Want to Leave Your Rating For This Product ?",
+    "leave_comment" : "Leave Comment",
+    "send" : "Send",
+    "cancel" : "Cancel",
+    "rate_this_product" : "Rate This Product",
+    "enter_discount_code" : "Enter Discount Code",
+    "please_enter_discount_code" : "Please Enter Discount Code",
+    "apply_discount" : "Apply Discount",
+    "proceed" : "Proceed"
+}

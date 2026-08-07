@@ -1,0 +1,14 @@
+{
+    "checkout" : "Checkout",
+    "deliver_to" : "DELIVER TO",
+    "shipping" : "Shipping",
+    "back_to_cart" : "BACK TO CART",
+    "continue_to_payment" : "Proceed",
+    "my_details" : "My Details",
+    "place_order" : "Place Order",
+    "add_new_address" : "Add New Address",
+    "payment" : "Payment",
+    "payment_method" : "Payment Method",
+    "cash_on_delivery" : "Cash On Delivery",
+    "card_on_delivery" : "Card On Delivery"
+}

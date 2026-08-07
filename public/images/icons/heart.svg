@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="fi-rs-heart_Background_Mask_" data-name="fi-rs-heart (Background/Mask)" width="24" height="24" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="fi-rs-heart" clip-path="url(#clip-path)">
+    <g id="_01_align_center" data-name="01 align center" transform="translate(-0.005 0.917)">
+      <path id="Vector" d="M11.426,21.982C10.961,21.65,0,13.825,0,7.05A6.8,6.8,0,0,1,6.505,0a6.4,6.4,0,0,1,5.5,3.3,6.4,6.4,0,0,1,5.5-3.3A6.8,6.8,0,0,1,24,7.05c0,6.775-10.956,14.6-11.422,14.932l-.578.41Z" fill="#432d71"/>
+    </g>
+  </g>
+</svg>

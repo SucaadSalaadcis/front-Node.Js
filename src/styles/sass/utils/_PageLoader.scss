@@ -1,0 +1,31 @@
+.page-loader {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    z-index: 88888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .page-loader-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .page-loader-spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid #e0e0e0;
+        border-top-color: $mainColor;
+        border-radius: 50%;
+        animation: rotation 0.8s linear infinite;
+    }
+}

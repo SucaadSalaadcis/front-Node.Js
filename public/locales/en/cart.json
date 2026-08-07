@@ -1,0 +1,11 @@
+{
+    "my_cart" : "My Cart",
+    "you_have" : "You Have",
+    "product_in_your_cart" : "Product in Your Cart",
+    "select_qty" : "Select QTY",
+    "egp" : "EGP",
+    "continue_shopping" : "Continue Shopping",
+    "Your_shopping_cart_is_currently_empty" : "Your shopping cart is currently empty.",
+    "additional_notes" : "Additional Notes",
+    "notes_placeholder" : "Add your notes here"
+}

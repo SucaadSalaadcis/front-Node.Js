@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 26 26">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="icon-compare_1_Background_Mask_" data-name="icon-compare 1 (Background/Mask)" width="26" height="26" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="icon-compare_1" data-name="icon-compare 1" clip-path="url(#clip-path)">
+    <g id="Group" transform="translate(0 0.93)">
+      <g id="Group-2" data-name="Group">
+        <g id="Group-3" data-name="Group">
+          <path id="Vector" d="M16.794,6.63A11.643,11.643,0,0,0,1.64,2.016V0H0V4.92H4.92V3.28h-2.1A10,10,0,0,1,15.377,7.457Z" transform="translate(4.921)" fill="#432d71"/>
+          <path id="Vector-2" data-name="Vector" d="M2.969.82,1.547,0A11.643,11.643,0,0,0,4.056,14.63h-2v1.64h4.92V11.35H5.331v2.194h0A9.984,9.984,0,0,1,2.969.82Z" transform="translate(0 6.689)" fill="#432d71"/>
+          <path id="Vector-3" data-name="Vector" d="M7.384,3.479,8.543,4.639,9.937,3.245A10.022,10.022,0,0,1,0,12.195v1.64A11.656,11.656,0,0,0,11.593,3.049l1.589,1.589,1.159-1.159L10.862,0Z" transform="translate(11.659 10.305)" fill="#432d71"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
