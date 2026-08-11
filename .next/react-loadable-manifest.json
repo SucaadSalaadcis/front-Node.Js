@@ -10,5 +10,23 @@
     "files": [
       "static/chunks/node_modules_leaflet_dist_leaflet-src_js.js"
     ]
+  },
+  "index.js -> @/components/PromoBanner": {
+    "id": "index.js -> @/components/PromoBanner",
+    "files": [
+      "static/chunks/src_components_PromoBanner_index_jsx.js"
+    ]
+  },
+  "index.js -> @/components/TopBrands": {
+    "id": "index.js -> @/components/TopBrands",
+    "files": [
+      "static/chunks/src_components_TopBrands_index_jsx.js"
+    ]
+  },
+  "index.js -> @/components/TopDeals": {
+    "id": "index.js -> @/components/TopDeals",
+    "files": [
+      "static/chunks/src_components_TopDeals_index_jsx.js"
+    ]
   }
 }

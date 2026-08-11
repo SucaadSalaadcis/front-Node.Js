@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
 import i18next from "i18next";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CitiesDataHandler,
@@ -17,26 +18,29 @@ const LeafletMap = dynamic(
     ssr: false,
     loading: () => (
       <div className="flex h-[240px] items-center justify-center bg-slate-100 text-sm text-slate-500">
-        {i18next.t("loading_map")}
+        {i18next.t("loading_map", "Loading map...")}
       </div>
     ),
-  },
+  }
 );
+
 const defaultCenter = [30.0444, 31.2357]; // Default: Cairo [lat, lng]
 
 const RegionsBox = ({ onClose, hasSaved }) => {
+  const router = useRouter();
+  const { locale } = router;
   const { t } = useTranslation("common");
   const dispatch = useDispatch();
 
   const { CitiesData, CitiesByGovernorate, branchesData } = useSelector(
-    (state) => state.countries,
+    (state) => state.countries
   );
 
   const [mode, setMode] = useState("map"); // 'map' or 'manual'
   const [governmentID, setGovernmentID] = useState(0);
   const [cityID, setCityID] = useState(0);
 
-  const [formState, setFormState] = useState({
+  const [state, setState] = useState({
     city: "",
     region: "",
     branch: "",
@@ -44,7 +48,7 @@ const RegionsBox = ({ onClose, hasSaved }) => {
 
   // Map state
   const [selectedCoords, setSelectedCoords] = useState(defaultCenter);
-  const [mapLocationLabel, setMapLocationLabel] = useState(t("cairo_egypt"));
+  const [mapLocationLabel, setMapLocationLabel] = useState(t("cairo_egypt", "Cairo, Egypt"));
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -53,59 +57,33 @@ const RegionsBox = ({ onClose, hasSaved }) => {
 
   const searchTimeoutRef = useRef(null);
 
-  useEffect(() => {
-    const savedCity = localStorage.getItem(LocalKeys.CITY_NAME) || "";
-    const savedRegion = localStorage.getItem(LocalKeys.REGION_NAME) || "";
-    const savedBranch = localStorage.getItem(LocalKeys.BRANCH_NAME) || "";
-    setFormState({ city: savedCity, region: savedRegion, branch: savedBranch });
-  }, []);
-
+  // 1. EXACT OLD LOGIC: API Handlers synced with locale
   useEffect(() => {
     dispatch(CitiesDataHandler());
-  }, [dispatch]);
-
-  // Pre-fill government select from saved city name
-  useEffect(() => {
-    if (!CitiesData?.length) return;
-    const savedCity = localStorage.getItem(LocalKeys.CITY_NAME);
-    if (!savedCity) return;
-    const match = CitiesData.find((c) => c.name === savedCity);
-    if (match) setGovernmentID(match.id);
-  }, [CitiesData]);
-
-  // Pre-fill city select from saved region name
-  useEffect(() => {
-    if (!CitiesByGovernorate?.length) return;
-    const savedRegion = localStorage.getItem(LocalKeys.REGION_NAME);
-    if (!savedRegion) return;
-    const match = CitiesByGovernorate.find((c) => c.name === savedRegion);
-    if (match) setCityID(match.id);
-  }, [CitiesByGovernorate]);
+  }, [dispatch, locale]);
 
   useEffect(() => {
-    if (governmentID > 0) {
+    if (Number(governmentID) > 0) {
       dispatch(CitiesByGovernateDataHandler(governmentID));
     }
-  }, [governmentID, dispatch]);
+  }, [governmentID, dispatch, locale]);
 
   useEffect(() => {
-    if (cityID > 0) {
+    if (Number(cityID) > 0) {
       dispatch(BranchesDataHandler(cityID));
     }
-  }, [cityID, dispatch]);
+  }, [cityID, dispatch, locale]);
 
-  // Pre-fill branch select from saved branch ID
+  // Load initial saved localStorage data on mount
   useEffect(() => {
-    if (!branchesData?.length) return;
-    const savedBranchId = localStorage.getItem(LocalKeys.BRANCH_ID);
-    if (!savedBranchId) return;
-    const match = branchesData.find(
-      (b) => String(b.branchID) === savedBranchId,
-    );
-    if (match) {
-      setFormState((prev) => ({ ...prev, branch: savedBranchId }));
+    if (typeof window !== "undefined") {
+      setState({
+        city: localStorage.getItem(LocalKeys.CITY_NAME) || "",
+        region: localStorage.getItem(LocalKeys.REGION_NAME) || "",
+        branch: localStorage.getItem(LocalKeys.BRANCH_ID) || "",
+      });
     }
-  }, [branchesData]);
+  }, []);
 
   // Handle Search Input Change with Debounce
   const handleSearchInputChange = (e) => {
@@ -125,8 +103,8 @@ const RegionsBox = ({ onClose, hasSaved }) => {
       try {
         const response = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-            query,
-          )}&countrycodes=eg&limit=5`,
+            query
+          )}&countrycodes=eg&limit=5`
         );
         const data = await response.json();
         setSearchResults(data || []);
@@ -156,7 +134,7 @@ const RegionsBox = ({ onClose, hasSaved }) => {
 
     if (!isInZone) {
       setIsOutOfZone(true);
-      setMapLocationLabel(t("sorry_we_do_not_cover_this_area"));
+      setMapLocationLabel(t("sorry_we_do_not_cover_this_area", "Sorry, we do not cover this area"));
       return;
     }
 
@@ -164,48 +142,41 @@ const RegionsBox = ({ onClose, hasSaved }) => {
     const label = result.display_name.split(",").slice(0, 2).join(",");
     setMapLocationLabel(label);
 
-    setFormState((prev) => ({
+    setState((prev) => ({
       ...prev,
-      city: t("cairo"),
+      city: t("cairo", "Cairo"),
       region: label,
     }));
   };
 
   const handleClose = useCallback(() => {
-    if (hasSaved && onClose) onClose();
-  }, [hasSaved, onClose]);
+    if (onClose) onClose();
+  }, [onClose]);
 
-  // Handle Manual Form Submission
-  const HandleSubmit = (e) => {
+  // 2. EXACT OLD LOGIC: Manual Form Submission
+  const HandelSubmit = (e) => {
     if (e) e.preventDefault();
 
-    if (formState.city) {
-      localStorage.setItem(LocalKeys.CITY_NAME, formState.city);
+    if (state.city) {
+      localStorage.setItem(LocalKeys.CITY_NAME, state.city);
     }
 
-    if (formState.region) {
-      localStorage.setItem(LocalKeys.REGION_NAME, formState.region);
+    if (state.region) {
+      localStorage.setItem(LocalKeys.REGION_NAME, state.region);
     }
 
-    if (formState.branch) {
-      localStorage.setItem(LocalKeys.BRANCH_ID, formState.branch);
-      const selected = document.getElementById("Branches");
-      if (selected) {
+    if (state.branch) {
+      localStorage.setItem(LocalKeys.BRANCH_ID, state.branch);
+      const branchSelect = document.getElementById("Branches");
+      if (branchSelect && branchSelect.selectedIndex >= 0) {
         localStorage.setItem(
           LocalKeys.BRANCH_NAME,
-          selected.options[selected.selectedIndex].text,
+          branchSelect.options[branchSelect.selectedIndex].text
         );
       }
     }
 
-    if (hasSaved) {
-      if (onClose) onClose();
-    } else {
-      if (formState.city && formState.region) {
-        if (onClose) onClose();
-      }
-    }
-
+    if (onClose) onClose();
     window.location.reload();
   };
 
@@ -217,7 +188,7 @@ const RegionsBox = ({ onClose, hasSaved }) => {
 
     if (!isInDeliveryZone) {
       setIsOutOfZone(true);
-      setMapLocationLabel(t("sorry_we_do_not_cover_this_area"));
+      setMapLocationLabel(t("sorry_we_do_not_cover_this_area", "Sorry, we do not cover this area"));
       return;
     }
 
@@ -226,7 +197,7 @@ const RegionsBox = ({ onClose, hasSaved }) => {
 
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`,
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`
       );
       const data = await response.json();
 
@@ -242,22 +213,22 @@ const RegionsBox = ({ onClose, hasSaved }) => {
           data.address.city ||
           data.address.town ||
           data.address.state ||
-          t("cairo");
+          t("cairo", "Cairo");
 
         const formattedName = district ? `${district}, ${city}` : city;
 
         setMapLocationLabel(formattedName);
 
-        setFormState((prev) => ({
+        setState((prev) => ({
           ...prev,
           city: city,
           region: formattedName,
         }));
       } else {
-        setMapLocationLabel(t("selected_location"));
+        setMapLocationLabel(t("selected_location", "Selected Location"));
       }
     } catch (error) {
-      setMapLocationLabel(t("selected_location"));
+      setMapLocationLabel(t("selected_location", "Selected Location"));
     } finally {
       setIsLoadingAddress(false);
     }
@@ -266,17 +237,11 @@ const RegionsBox = ({ onClose, hasSaved }) => {
   const handleConfirmMapLocation = () => {
     if (isOutOfZone) return;
 
-    const cityName = formState.city || "Cairo";
-    const regionName = formState.region || mapLocationLabel;
+    const cityName = state.city || "Cairo";
+    const regionName = state.region || mapLocationLabel;
 
     localStorage.setItem(LocalKeys.CITY_NAME, cityName);
     localStorage.setItem(LocalKeys.REGION_NAME, regionName);
-
-    setFormState((prev) => ({
-      ...prev,
-      city: cityName,
-      region: regionName,
-    }));
 
     if (onClose) onClose();
     window.location.reload();
@@ -285,6 +250,7 @@ const RegionsBox = ({ onClose, hasSaved }) => {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity bg-black/50 backdrop-blur-sm"
+      dir={locale === "ar" ? "rtl" : "ltr"}
       onClick={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}
@@ -293,28 +259,26 @@ const RegionsBox = ({ onClose, hasSaved }) => {
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-slate-900">
-            {t("select_your_location")}
+            {t("choose_your_region", locale === "ar" ? "اختر منطقتك" : "Choose Your Region")}
           </h2>
-          {hasSaved && (
-            <button
-              type="button"
-              onClick={onClose}
-              className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600"
-              aria-label="Close"
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-1 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            aria-label="Close"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-          )}
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
         </div>
 
         {/* Map View */}
@@ -324,7 +288,7 @@ const RegionsBox = ({ onClose, hasSaved }) => {
             <div className="relative mb-3">
               <div className="relative">
                 <svg
-                  className="absolute left-3.5 top-3 h-4 w-4 text-brand-navy/60"
+                  className="absolute left-3.5 top-3 h-4 w-4 text-slate-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -338,10 +302,10 @@ const RegionsBox = ({ onClose, hasSaved }) => {
                 </svg>
                 <input
                   type="text"
-                  placeholder={t("search_areas")}
+                  placeholder={t("search_areas", locale === "ar" ? "ابحث عن منطقة..." : "Search areas...")}
                   value={searchQuery}
                   onChange={handleSearchInputChange}
-                  className="w-full rounded-xl bg-slate-100 py-2.5 pl-10 pr-4 text-sm text-slate-800 outline-none focus:ring-2 focus:ring-brand-navy"
+                  className="w-full rounded-xl bg-slate-100 py-2.5 pl-10 pr-4 text-sm text-slate-800 outline-none focus:ring-2 focus:ring-slate-900"
                 />
               </div>
 
@@ -362,7 +326,7 @@ const RegionsBox = ({ onClose, hasSaved }) => {
 
               {isSearching && (
                 <div className="absolute text-xs right-3 top-3 text-slate-400">
-                  {t("loading...") || "Searching..."}
+                  {t("loading...", "Searching...")}
                 </div>
               )}
             </div>
@@ -380,21 +344,13 @@ const RegionsBox = ({ onClose, hasSaved }) => {
             {isOutOfZone ? (
               <div className="p-3 my-3 text-xs border rounded-xl border-amber-200 bg-amber-50 text-amber-800">
                 <p className="font-bold text-red-600">
-                  ⚠️ {t("sorry_we_do_not_cover_this_area")}
+                  ⚠️ {t("sorry_we_do_not_cover_this_area", "Sorry, we do not cover this area")}
                 </p>
-                <a
-                  href="https://linktr.ee/elfergany"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-1 font-bold underline text-brand-navy"
-                >
-                  {t("view_delivery_areas")}
-                </a>
               </div>
             ) : (
               <div className="flex items-center gap-2 my-3 text-sm font-semibold text-slate-900">
                 <svg
-                  className="w-5 h-5 text-brand-navy"
+                  className="w-5 h-5 text-slate-700"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -405,15 +361,11 @@ const RegionsBox = ({ onClose, hasSaved }) => {
                     strokeWidth="2"
                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                   />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
                 </svg>
                 <span>
-                  {isLoadingAddress ? t("getting_address") : mapLocationLabel}
+                  {isLoadingAddress
+                    ? t("getting_address", "Fetching address...")
+                    : mapLocationLabel}
                 </span>
               </div>
             )}
@@ -424,138 +376,124 @@ const RegionsBox = ({ onClose, hasSaved }) => {
                 type="button"
                 onClick={handleConfirmMapLocation}
                 disabled={isOutOfZone || isLoadingAddress}
-                className="flex-1 py-3 text-sm font-semibold text-white transition-all rounded-full bg-brand-navy hover:opacity-90 disabled:opacity-50"
+                className="flex-1 py-3 text-sm font-semibold text-white transition-all rounded-full bg-slate-900 hover:bg-slate-800 disabled:opacity-50"
               >
-                {t("select_your_location")}
+                {t("save", locale === "ar" ? "حفظ التغييرات" : "Save Changes")}
               </button>
               <button
                 type="button"
                 onClick={() => setMode("manual")}
-                className="flex-1 py-3 text-sm font-semibold transition-all border-2 rounded-full border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white"
+                className="flex-1 py-3 text-sm font-semibold transition-all border-2 rounded-full border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white"
               >
-                {t("enter_manually")}
+                {t("enter_manually", locale === "ar" ? "أدخل يدوياً" : "Enter Manually")}
               </button>
             </div>
           </div>
         ) : (
           /* Manual Dropdowns Form */
-          <form className="pt-1 space-y-4" onSubmit={HandleSubmit}>
+          <form className="pt-1 space-y-4" onSubmit={HandelSubmit}>
             <div className="flex items-center justify-between pb-1">
               <span className="text-xs text-slate-500">
-                {t("select_government")}، {t("select_city")}،{" "}
-                {t("select_branch")}
+                {t("select_location_manual", "Select options below")}
               </span>
               <button
                 type="button"
                 onClick={() => setMode("map")}
-                className="text-xs font-semibold text-brand-navy hover:underline"
+                className="text-xs font-semibold text-slate-900 hover:underline"
               >
-                ← {t("use_map")}
+                ← {t("use_map", locale === "ar" ? "استخدم الخريطة" : "Use Map")}
               </button>
             </div>
 
             {/* Government Select */}
             <div className="space-y-1">
-              <label
-                htmlFor="Government"
-                className="text-xs font-medium text-slate-700"
-              >
-                {t("governments")}
+              <label htmlFor="Government" className="text-xs font-medium text-slate-700">
+                {t("governments", locale === "ar" ? "المحافظات" : "Governorates")}
               </label>
               <select
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 text-sm text-slate-800 outline-none focus:border-brand-navy focus:bg-white focus:ring-1 focus:ring-brand-navy"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 text-sm text-slate-800 outline-none focus:border-slate-900 focus:bg-white"
                 id="Government"
-                value={governmentID || ""}
                 onChange={(e) => {
-                  setGovernmentID(Number(e.target.value));
-                  setFormState({
-                    ...formState,
+                  const selectedVal = e.target.value;
+                  setGovernmentID(selectedVal);
+                  setState((prev) => ({
+                    ...prev,
                     city: e.target.options[e.target.selectedIndex].text,
-                  });
+                  }));
                 }}
               >
-                <option value="">{t("select_government")}</option>
-                {CitiesData?.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.name}
-                  </option>
-                ))}
+                <option value="">
+                  {t("select_government", locale === "ar" ? "اختر المحافظة" : "Select Governorate")}
+                </option>
+                {CitiesData &&
+                  CitiesData.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
               </select>
             </div>
 
             {/* City Select */}
             <div className="space-y-1">
-              <label
-                htmlFor="City"
-                className="text-xs font-medium text-slate-700"
-              >
-                {t("cities")}
+              <label htmlFor="City" className="text-xs font-medium text-slate-700">
+                {t("cities", locale === "ar" ? "المدن" : "Cities")}
               </label>
               <select
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 text-sm text-slate-800 outline-none focus:border-brand-navy focus:bg-white focus:ring-1 focus:ring-brand-navy"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 text-sm text-slate-800 outline-none focus:border-slate-900 focus:bg-white"
                 id="City"
-                value={cityID || ""}
                 onChange={(e) => {
-                  setCityID(Number(e.target.value));
-                  setFormState({
-                    ...formState,
+                  const selectedVal = e.target.value;
+                  setCityID(selectedVal);
+                  setState((prev) => ({
+                    ...prev,
                     region: e.target.options[e.target.selectedIndex].text,
-                  });
+                  }));
                 }}
               >
-                <option value="">{t("select_city")}</option>
-                {CitiesByGovernorate?.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.name}
-                  </option>
-                ))}
+                <option value="">
+                  {t("select_city", locale === "ar" ? "اختر المدينة" : "Select City")}
+                </option>
+                {CitiesByGovernorate &&
+                  CitiesByGovernorate.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
               </select>
             </div>
 
             {/* Branch Select */}
             <div className="space-y-1">
-              <label
-                htmlFor="Branches"
-                className="text-xs font-medium text-slate-700"
-              >
-                {t("branches")}
+              <label htmlFor="Branches" className="text-xs font-medium text-slate-700">
+                {t("branches", locale === "ar" ? "الفروع" : "Branches")}
               </label>
               <select
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 text-sm text-slate-800 outline-none focus:border-brand-navy focus:bg-white focus:ring-1 focus:ring-brand-navy"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 text-sm text-slate-800 outline-none focus:border-slate-900 focus:bg-white"
                 id="Branches"
-                value={formState.branch || ""}
                 onChange={(e) => {
-                  setFormState({ ...formState, branch: e.target.value });
+                  setState((prev) => ({ ...prev, branch: e.target.value }));
                 }}
               >
-                <option value="">{t("select_branch")}</option>
-                {branchesData?.map((item) => (
-                  <option key={item.id} value={item.branchID}>
-                    {item.name}
-                  </option>
-                ))}
+                <option value="">
+                  {t("select_branch", locale === "ar" ? "اختر الفرع" : "Select Branch")}
+                </option>
+                {branchesData &&
+                  branchesData.map((item) => (
+                    <option key={item.id} value={item.branchID}>
+                      {item.name}
+                    </option>
+                  ))}
               </select>
             </div>
 
-            <div className="pt-1 text-xs text-center text-slate-500">
-              {t("want_to_check_covered_areas")}
-              <a
-                href="https://linktr.ee/elfergany"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold underline text-brand-navy"
-              >
-                {t("view_linktree_coverage")}
-              </a>
-            </div>
-
+            {/* Submit Button */}
             <div className="pt-2">
               <button
                 type="submit"
-                disabled={!formState.city || !formState.region}
-                className="w-full py-3 text-sm font-semibold text-white transition-all rounded-full bg-brand-navy hover:opacity-90 disabled:opacity-50"
+                className="w-full py-3 text-sm font-semibold text-white transition-all rounded-full bg-slate-900 hover:bg-slate-800"
               >
-                {t("save")}
+                {t("save", locale === "ar" ? "حفظ التغييرات" : "Save Changes")}
               </button>
             </div>
           </form>
