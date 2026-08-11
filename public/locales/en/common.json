@@ -60,5 +60,14 @@
   "want_to_check_covered_areas": "Want to check covered areas first?",
   "view_linktree_coverage": "View our Linktree Coverage Areas",
   "cairo": "Cairo",
-  "cairo_egypt": "Cairo, Egypt"
+  "cairo_egypt": "Cairo, Egypt",
+  "groceries_delivered_title": "Your Groceries, Delivered with Care",
+  "groceries_delivered_description": "Shop with ease using our app, earn shopping points, track orders, and enjoy exclusive offers.",
+  "scan_to_download": "Scan to download",
+  "our_mobile_app": "our mobile app",
+  "mobile_app": "Mobile App",
+  "earn_shopping_points": "Earn Shopping Points",
+  "track_your_orders": "Track Your Orders",
+  "collect_reward_points": "Collect Reward Points",
+  "exclusive_offers": "Exclusive Offers"
 }
