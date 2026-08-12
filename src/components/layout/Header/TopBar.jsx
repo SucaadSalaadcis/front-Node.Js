@@ -90,7 +90,7 @@ const TopBar = () => {
                     alt="Fast Delivery"
                     width={18}
                     height={18}
-                    className="object-contain"
+                     className="object-contain brightness-0 invert"
                   />
                   <span className="hidden text-white/70 lg:inline">
                     {t(
