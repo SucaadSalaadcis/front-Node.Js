@@ -59,7 +59,7 @@ const MainMenu = () => {
     <ul className="main-menu flex items-center gap-0.5">
       <li>
         <Link href="/hot-offers" className={linkClass(router.pathname === "/hot-offers")}>
-          <span className="w-6 h-6 flex items-center justify-center rounded-lg bg-orange-50 text-orange-500">
+          <span className="flex items-center justify-center w-6 h-6 text-orange-500 rounded-lg bg-orange-50">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
             </svg>
@@ -70,7 +70,7 @@ const MainMenu = () => {
 
       <li>
         <Link href="/elfergany-magazine" className={linkClass(router.pathname === "/elfergany-magazine")}>
-          <span className="w-6 h-6 flex items-center justify-center rounded-lg bg-blue-50 text-blue-500">
+          <span className="flex items-center justify-center w-6 h-6 text-blue-500 rounded-lg bg-blue-50">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
               <line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="14" y2="11"/>
@@ -98,7 +98,7 @@ const MainMenu = () => {
             );
           })
         : [...Array(4)].map((_, i) => (
-            <li key={i} className="h-9 w-28 rounded-lg bg-gray-200 animate-pulse" />
+            <li key={i} className="bg-gray-200 rounded-lg h-9 w-28 animate-pulse" />
           ))}
     </ul>
   );

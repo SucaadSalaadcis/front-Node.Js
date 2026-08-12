@@ -4,78 +4,59 @@ import { useDispatch, useSelector } from "react-redux";
 import { SingleCategoryDataHandler } from "@/redux/actions/CategoriesApi";
 import { useRouter } from "next/router";
 import PageLoader from "@/utils/PageLoader";
-import FilterBox from "@/utils/FilterBox";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import PageHeader from "@/utils/PageHeader";
 import { useTranslation } from "next-i18next";
-import Slider from "react-slick";
-import Image from "next/image";
-import Link from "next/link";
 
-// Slider arrow
-const Arrow = ({ onClick, disabled, direction }) => (
-  <div
-    onClick={!disabled ? onClick : undefined}
-    className={`absolute ${direction === "right" ? "right-0" : "left-0"
-      } top-1/2 -translate-y-1/2 z-10 cursor-pointer`}
-  >
-    <div
-      className={`flex h-10 w-10 items-center justify-center rounded-full border transition
-        ${disabled
-          ? "border-gray-300 bg-gray-100 cursor-not-allowed"
-          : "border-blue-500 bg-white hover:bg-blue-50 shadow-md"
-        }`}
-    >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        {direction === "right" ? (
-          <path d="M9 18l6-6-6-6" />
-        ) : (
-          <path d="M15 18l-6-6 6-6" />
-        )}
-      </svg>
-    </div>
-  </div>
-);
-
-const getSlidesCount = () => {
-  if (typeof window === "undefined") return 5;
-  if (window.innerWidth < 640) return 2;
-  if (window.innerWidth < 768) return 3;
-  if (window.innerWidth < 1024) return 4;
-  if (window.innerWidth < 1280) return 5;
-  return 6;
-};
-
-const PER_PAGE = 10;
+const PER_PAGE = 8;
 
 const SingleCategoryPage = () => {
   const router = useRouter();
   const { t, i18n } = useTranslation();
+
   const { CatSlug } = router.query;
+
   const dispatch = useDispatch();
-  const { SingleCatData } = useSelector((state) => state.categoriesData);
+
+  const { SingleCatData } = useSelector(
+    (state) => state.categoriesData
+  );
 
   const [loader, setLoader] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [slidesCount, setSlidesCount] = useState(5);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [showFilter, setShowFilter] = useState(false);
 
+  // Currently selected subcategory
+  // null = All
+  const [activeSubCat, setActiveSubCat] = useState(null);
+
+  // Keep parent category information separate
+  const [categoryInfo, setCategoryInfo] = useState(null);
+
+  // Products currently displayed
   const [products, setProducts] = useState([]);
+
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   const isRTL = i18n.language === "ar";
-  const totalSlides = SingleCatData?.sub_category?.length || 0;
 
-  const loadCategory = (pageNumber = 1) => {
-    if (pageNumber === 1) setLoader(true);
-    else setLoadingMore(true);
+ 
+  // Load category / subcategory product
+  const loadCategory = (pageNumber = 1, subCatSlug = null) => {
+    if (pageNumber === 1) {
+      setLoader(true);
+    } else {
+      setLoadingMore(true);
+    }
+
+    // Parent category when subCatSlug is null
+    // Subcategory when subCatSlug has a value
+    const targetSlug = subCatSlug || CatSlug;
 
     dispatch(
       SingleCategoryDataHandler(
-        CatSlug,
+        targetSlug,
         () => {
           setLoader(false);
           setLoadingMore(false);
@@ -87,26 +68,48 @@ const SingleCategoryPage = () => {
       )
     );
   };
+
+
+  // Initial category load
   useEffect(() => {
     if (!router.isReady) return;
 
-    // Reset state
+    setActiveSubCat(null);
     setPage(1);
     setProducts([]);
     setHasMore(true);
+    setCategoryInfo(null);
 
-    // Reload category data
-    loadCategory(1);
+    loadCategory(1, null);
   }, [router.isReady, CatSlug, i18n.language]);
 
-  useEffect(() => {
-    const productsArray = SingleCatData?.products || []; // safe fallback
 
-    setProducts(prev =>
-      page === 1 ? productsArray : [...prev, ...productsArray]
+  // Sync Redux data with local products
+  useEffect(() => {
+    if (!SingleCatData) return;
+
+    const productsArray = SingleCatData.products || [];
+
+    // Save parent category info when loading "All" (activeSubCat === null),
+    // or if categoryInfo was locked earlier without sub_categories populated.
+    const hasSubCategories =
+      Array.isArray(SingleCatData.sub_category) &&
+      SingleCatData.sub_category.length > 0;
+
+    if (activeSubCat === null || !categoryInfo?.sub_category?.length) {
+      if (hasSubCategories || activeSubCat === null) {
+        setCategoryInfo(SingleCatData);
+      }
+    }
+
+    // Update displayed products
+    setProducts((prev) =>
+      page === 1
+        ? productsArray
+        : [...prev, ...productsArray]
     );
 
-    // Update hasMore based on API returned products
+    // Check if there are more products
     if (productsArray.length < PER_PAGE) {
       setHasMore(false);
     } else {
@@ -114,131 +117,151 @@ const SingleCategoryPage = () => {
     }
   }, [SingleCatData]);
 
+ 
+  // Change subcategory
+  const handleSubCategoryChange = (subSlug) => {
+    if (activeSubCat === subSlug) return;
 
-  useEffect(() => {
-    if (SingleCatData?.products) {
-      setProducts((prev) =>
-        page === 1 ? SingleCatData.products : [...prev, ...SingleCatData.products]
-      );
+    setActiveSubCat(subSlug);
+    setPage(1);
+    setProducts([]);
+    setHasMore(true);
 
-      if (SingleCatData.products.length < PER_PAGE) {
-        setHasMore(false);
-      }
-    } else {
-      setHasMore(false);
-    }
-  }, [SingleCatData]);
+    // Fetch only the products.
+    // The page/URL does NOT change.
+    loadCategory(1, subSlug);
+  };
 
+
+  // Load more products
   const handleLoadMore = () => {
     if (!hasMore || loadingMore) return;
 
-    const next = page + 1;
-    setPage(next);
-    loadCategory(next);
+    const nextPage = page + 1;
+
+    setPage(nextPage);
+
+    loadCategory(nextPage, activeSubCat);
   };
 
-  useEffect(() => {
-    const updateSlides = () => setSlidesCount(getSlidesCount());
-    updateSlides();
-    window.addEventListener("resize", updateSlides);
-    return () => window.removeEventListener("resize", updateSlides);
-  }, []);
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: slidesCount,
-    slidesToScroll: 1,
-    arrows: true,
-    beforeChange: (_, next) => {
-      const maxIndex = Math.max(totalSlides - slidesCount, 0);
-      setCurrentSlide(next > maxIndex ? maxIndex : next);
-    },
-    nextArrow: <Arrow direction="right" disabled={currentSlide >= totalSlides - slidesCount} />,
-    prevArrow: <Arrow direction="left" disabled={currentSlide === 0} />,
-  };
+  // Parent category information
+  const parentCategoryName =
+    categoryInfo?.parent_name || categoryInfo?.name;
+
+  const subCategories =
+    categoryInfo?.sub_category || [];
 
   return (
     <>
       <Head>
-        <title>{SingleCatData?.name} - {t("common:site_name")}</title>
+        <title>
+          {parentCategoryName} - {t("common:site_name")}
+        </title>
       </Head>
 
+      {/* Parent category header always stays */}
       <PageHeader
-        title={SingleCatData?.name}
-        subTitle={SingleCatData?.name}
-        banner={SingleCatData?.banner}
+        title={parentCategoryName}
+        subTitle={parentCategoryName}
+        banner={categoryInfo?.banner}
       />
 
-      <section className="page-wrapper">
-        <div className="container">
-          {loader ? (
+      <section className="py-6 page-wrapper">
+        <div className="container px-4 mx-auto">
+
+          {loader && page === 1 ? (
             <PageLoader />
           ) : (
-            <>
-              <div className="filter-icon" onClick={() => setShowFilter(true)}>
-                <span className="filter-label">{t('filter')}</span>
-                <i className="fi fi-rr-settings-sliders"></i>
-              </div>
-              <div className="row">
-                <div className="col-md-3">
-                  <FilterBox mobClass={showFilter} FilterHide={() => setShowFilter(false)} />
-                </div>
-                <div className="col-md-9">
-                  {Array.isArray(SingleCatData?.sub_category) &&
-                    SingleCatData.sub_category.length > 0 && (
-                      <div className="mb-8">
-                        <Slider {...settings} dir={isRTL ? "rtl" : "ltr"}>
-                          {SingleCatData.sub_category.map((sub) => (
-                            <Link
-                              key={sub.id}
-                              href={`/categories/${sub.slug}`}
-                              className="flex flex-col items-center p-3 w-32"
-                            >
-                              <div className="w-28 h-28 mb-2 flex items-center justify-center rounded-lg border bg-white shadow">
-                                <Image
-                                  src={sub.icon}
-                                  alt={sub.name}
-                                  width={112}
-                                  height={112}
-                                  unoptimized
-                                />
-                              </div>
-                              <div className="h-6 w-28 text-center font-medium truncate">
-                                {sub.name}
-                              </div>
-                            </Link>
-                          ))}
-                        </Slider>
-                      </div>
-                    )}
+            <div className="w-full">  
+              {/* Subcategory Tabs */}
+              {Array.isArray(subCategories) &&
+                subCategories.length > 0 && (
+                  <div className="w-full mb-8 border-b border-slate-200">
 
-                  {products.length === 0 && (
-                    <div className="text-center py-16 text-gray-500 text-lg">
-                      {/* No products found in this category. */}
-                    </div>
-                  )}
+                    <div
+                      className="flex items-center gap-6 pb-2 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-slate-100 whitespace-nowrap"
+                      dir={isRTL ? "rtl" : "ltr"}
+                    >
 
-                  <SingleCategory
-                    data={{ ...SingleCatData, products }}
-                    hideSubCategories
-                  />
-
-                  {hasMore && (
-                    <div className="flex justify-center my-10">
+                      {/* ALL */}
                       <button
-                        onClick={handleLoadMore}
-                        disabled={loadingMore || products.length === 0}
-                        className="px-8 py-3 bg-[#1D3E73] text-white rounded-lg font-semibold hover:bg-[#335C99] transition disabled:opacity-60"
+                        type="button"
+                        onClick={() =>
+                          handleSubCategoryChange(null)
+                        }
+                        className={`relative pb-2 text-sm font-semibold transition-colors duration-200 ${
+                          activeSubCat === null
+                            ? "text-[#1D3E73] font-bold border-b-2 border-[#1D3E73]"
+                            : "text-slate-600 hover:text-slate-900"
+                        }`}
                       >
-                        {loadingMore ? t("common:loading") : t("common:load_more")}
+                        {isRTL ? "الكل" : "All"}
                       </button>
+
+                      {/* SUBCATEGORIES */}
+                      {subCategories.map((sub) => {
+                        const isActive =
+                          activeSubCat === sub.slug;
+
+                        return (
+                          <button
+                            key={sub.id}
+                            type="button"
+                            onClick={() =>
+                              handleSubCategoryChange(sub.slug)
+                            }
+                            className={`relative pb-2 text-sm font-semibold transition-colors duration-200 flex items-center gap-1.5 ${
+                              isActive
+                                ? "text-[#1D3E73] font-bold border-b-2 border-[#1D3E73]"
+                                : "text-slate-600 hover:text-slate-900"
+                            }`}
+                          >
+                            <span>{sub.name}</span>
+                          </button>
+                        );
+                      })}
                     </div>
-                  )}
+                  </div>
+                )}
+
+            
+              {/* Empty State */}
+
+              {!loader && products.length === 0 && (
+                <div className="py-16 text-sm font-medium text-center text-slate-400">
+                  {isRTL
+                    ? "لا توجد منتجات في هذا القسم حالياً"
+                    : "No products found in this category."}
                 </div>
-              </div>
-            </>
+              )}
+
+              {/* Products */}
+              <SingleCategory
+                data={{
+                  ...categoryInfo,
+                  name: parentCategoryName,
+                  products,
+                }}
+                hideSubCategories
+              />
+
+          
+              {/* Load More */}
+              {hasMore && products.length > 0 && (
+                <div className="flex justify-center my-10">
+                  <button
+                    onClick={handleLoadMore}
+                    disabled={loadingMore}
+                    className="px-8 py-2.5 bg-[#1D3E73] text-white text-sm rounded-lg font-bold hover:bg-[#335C99] transition disabled:opacity-60 shadow-sm active:scale-95"
+                  >
+                    {loadingMore
+                      ? t("common:loading")
+                      : t("common:load_more")}
+                  </button>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </section>
@@ -251,7 +274,12 @@ export default SingleCategoryPage;
 export async function getServerSideProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["menu", "common", "header", "product"])),
+      ...(await serverSideTranslations(locale, [
+        "menu",
+        "common",
+        "header",
+        "product",
+      ])),
     },
   };
 }

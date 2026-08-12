@@ -1,39 +1,67 @@
 import CategoriesDropdown from "./CategoriesDropdown";
 import MainMenu from "./MainMenu";
-import SupportIcon from '../../../../public/images/icons/icon-headphone.svg';
-import { useTranslation } from 'next-i18next';
+import SupportIcon from "../../../../public/images/icons/icon-headphone.svg";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import Link from "next/link";
 
 const MenuHeader = () => {
+  const { i18n } = useTranslation();
+  const isRtl = i18n?.language === "ar";
 
-    const { t } = useTranslation();
+  return (
+    /* Hidden completely on Mobile/Tablet (< 1024px), Visible starting at lg breakpoint */
+    <div
+      className="hidden w-full py-2 font-sans bg-white border-b lg:block border-slate-100"
+      dir={isRtl ? "rtl" : "ltr"}
+    >
+      {/* Container */}
+      <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-4 xl:gap-6">
+          
+          {/* 1. Categories Trigger */}
+          <div className="shrink-0">
+            <CategoriesDropdown />
+          </div>
 
-    return(
-        <div className="menu-header">
-            <div className="container">
-                <div className="row align-items-center">
-                    <div className="col-md-2">
-                        <CategoriesDropdown />
-                    </div>
-                    <div className="col-md-8">
-                        <MainMenu />
-                    </div>
-                    <div className="col-md-2">
-                        <div className="support">
-                            <Image src={SupportIcon} alt="Support" width={36} height={36} />
-                            <div className="support-label">
-                                <h4 className="title">
-                                    <Link href="tel:19631">19631</Link>
-                                </h4>
-                                {/* <p className="text">{t('support_center')}</p> */}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          {/* 2. Main Navigation Menu */}
+          <div className="flex-1 min-w-0">
+            <MainMenu />
+          </div>
+
+          {/* 3. Support Call Center Block */}
+          <div className="flex items-center gap-2.5 pl-3 rtl:pl-0 rtl:pr-3 border-l rtl:border-l-0 rtl:border-r border-slate-200 shrink-0">
+            <Link
+              href="tel:19631"
+              aria-label="Call Support"
+              className="flex items-center justify-center w-8 h-8 transition-colors border rounded-full bg-slate-50 shrink-0 border-slate-100 hover:bg-slate-100"
+            >
+              <Image
+                src={SupportIcon}
+                alt="Support"
+                width={18}
+                height={18}
+                className="object-contain"
+              />
+            </Link>
+
+            <div className="flex flex-col">
+              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider leading-none mb-0.5">
+                {isRtl ? "خدمة العملاء" : "SUPPORT"}
+              </span>
+              <Link
+                href="tel:19631"
+                className="text-xs sm:text-sm font-black text-[#1D3E73] hover:opacity-80 transition-opacity leading-none"
+              >
+                19631
+              </Link>
             </div>
+          </div>
+
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default MenuHeader;
