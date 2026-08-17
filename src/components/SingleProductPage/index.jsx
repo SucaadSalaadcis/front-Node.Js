@@ -11,18 +11,9 @@ const SingleProductPage = ({ data }) => {
   return (
     <section className="single-product">
       <div className="container">
-        {/* <div className="row">
-                    <div className="col-md-6">
-                        <ProductSlider image={data?.thumbnail_img} photos={data?.photos} />
-                    </div>
-                    <div className="col-md-6">
-                        <ProductContent content={data} />
-                    </div>
-                </div> */}
-
-        <div className="w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+        <div className="w-full px-4 py-6 sm:px-6 lg:px-8 sm:py-10">
           <div className="bg-white rounded-[20px] sm:rounded-[28px] p-4 sm:p-8 shadow-sm border border-gray-100 max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 lg:gap-12 items-start">
+            <div className="grid items-start grid-cols-1 gap-6 md:grid-cols-12 md:gap-8 lg:gap-12">
               {/* Left Column */}
               <div className="w-full md:col-span-5">
                 <ProductSlider
@@ -47,7 +38,7 @@ const SingleProductPage = ({ data }) => {
         </div>
         <ProductInfo data={data} />
         <div className="related-products">
-          <h3 className="related-title mb-5">{t("maybe_interested")}</h3>
+          <h3 className="mb-5 related-title">{t("maybe_interested")}</h3>
           <div className="row">
             {data.related.map((item) => (
               <Fragment key={item.id}>

@@ -6,7 +6,7 @@ import TopHeaderMobile from "./TopHeaderMobile";
 
 const Header = () => {
     return(
-        <header className="header">
+        <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
             <TopHeader />
             <TopHeaderMobile />
             <MainHeader />

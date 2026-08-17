@@ -3,7 +3,7 @@ import Hero from '@/components/Hero';
 import HomeFeaturedCategories from '@/components/HomeFeaturedCategories';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from 'next/head';
-import MobileAppBanner from './test';
+import MobileAppBanner from './mobile_banner';
 
 // const FlashSale = dynamic(() => import('@/components/FlashSale'), { ssr: false });
 import FlashSale from "@/components/FlashSale";
@@ -31,7 +31,7 @@ export default function Home() {
       <TopBrands />
        <PromoBanner/>
       <TopDeals />
-      {/* <MobileAppBanner/>  */}
+      <MobileAppBanner/> 
     </>
   )
 }
